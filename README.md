@@ -100,3 +100,28 @@ git push -u origin main
 استبدل `اسم_المستخدم` و`اسم_المستودع` بقيمك من GitHub. عند `git push` سيُطلب منك تسجيل الدخول (اسم مستخدم + Personal Access Token بدل كلمة المرور).
 
 **ملاحظة:** ملف `.env` (مفتاح Mapbox) موجود في `.gitignore` ولن يُرفع — هذا صحيح لأسباب أمنية.
+
+## النشر على GitHub Pages
+
+المشروع جاهز للنشر على GitHub Pages. تم ضبط `base` في Vite ليتوافق مع عنوان المستودع (`/al-hara/`)، وتوجد ووركفلو **GitHub Actions** تبني المشروع وتنشره تلقائياً عند كل دفع إلى الفرع `main`.
+
+### خطوات التفعيل (مرة واحدة)
+
+1. في مستودع المشروع على GitHub: **Settings** → **Pages**.
+2. تحت **Build and deployment** اختر **Source**: **GitHub Actions**.
+3. احفظ الإعدادات.
+
+بعد الدفع إلى `main`، ستعمل الـ workflow تلقائياً. عند انتهائها، الموقع سيكون متاحاً على:
+
+- **https://khaledsulimani.github.io/al-hara/**
+
+(استبدل `khaledsulimani` باسم مستخدمك إن كان المستودع تحت حساب آخر.)
+
+### Mapbox على الموقع المنشور (اختياري)
+
+البناء على GitHub لا يملك ملف `.env`، لذلك الخريطة تعمل افتراضياً بـ Esri و OpenStreetMap. لتفعيل Mapbox على النسخة المنشورة:
+
+1. في المستودع: **Settings** → **Secrets and variables** → **Actions**.
+2. أضف Secret باسم `VITE_MAPBOX_ACCESS_TOKEN` وقيمته مفتاح Mapbox الخاص بك.
+
+الـ workflow مضبوط مسبقاً لاستخدام هذا الـ Secret عند البناء؛ بعد إضافته، أعد تشغيل الـ workflow (أو ادفع أي تعديل) وسيظهر خيار Mapbox في الموقع المنشور.
