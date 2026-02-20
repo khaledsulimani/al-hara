@@ -1,0 +1,17 @@
+# Dependencies
+node_modules
+
+# Build
+dist
+
+# Local env (مفتاح Google لا يُرفع)
+.env
+.env.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor
+.vscode
+.idea
