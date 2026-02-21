@@ -49,7 +49,22 @@ npm run build
 - **Mapbox (اختياري)**: للحصول على أقمار صناعية أوضح وتكبير أعلى (حتى 22):
   1. سجّل مجاناً في [Mapbox](https://account.mapbox.com/) واحصل على Access Token.
   2. انسخ `.env.example` إلى `.env` وضَع المفتاح: `VITE_MAPBOX_ACCESS_TOKEN=مفتاحك`.
-  3. أعد تشغيل السيرفر. سيظهر زر "Mapbox (أقمار صناعية)" فوق الخريطة.
+  3. أعد تشغيل السيرفر (`npm run dev`). سيظهر زر "Mapbox (أقمار صناعية)" فوق الخريطة.
+  4. **إذا لم تظهر الخريطة أو ظهرت رمادية**: في [Mapbox → Access tokens](https://account.mapbox.com/access-tokens/) تأكد أن المفتاح ليس مقيداً بدومين يمنع موقعك (مثلاً اترك "URL restrictions" فارغاً للتجربة، أو أضف `http://localhost:*` و `https://khaledsulimani.github.io`).
+
+## صور الدبابيس (الخريطة)
+
+ضع صور كل موقع داخل مجلد **`public/markers/`** بأسماء رقمية:
+- **1.jpg** → ملعب الحارة  
+- **2.jpg** → مركاز محضار  
+- **3.jpg** → تقاطع الحارة  
+- **4.jpg** → بندر القنفذة  
+- **5.jpg** → مربع الخالة نجية  
+- **6.jpg** → مركاز عمدة الحي الغربي  
+- **7.jpg** → دكان الطيبين  
+- **8.jpg** → ركن التصوير  
+
+يمكن استخدام **.png** بدل **.jpg** — غيّر في `src/data/markers.json` الحقل `image` إلى مثل `markers/7.png`.
 
 ## لوقو الحارة (الشعار)
 
@@ -119,9 +134,14 @@ git push -u origin main
 
 ### Mapbox على الموقع المنشور (اختياري)
 
-البناء على GitHub لا يملك ملف `.env`، لذلك الخريطة تعمل افتراضياً بـ Esri و OpenStreetMap. لتفعيل Mapbox على النسخة المنشورة:
+على الموقع المنشور (GitHub Pages) **لا يوجد ملف `.env`**، لذلك لا يظهر زر Mapbox ولا تعمل طبقة Mapbox إلا إذا أضفت المفتاح كـ Secret في المستودع:
 
-1. في المستودع: **Settings** → **Secrets and variables** → **Actions**.
-2. أضف Secret باسم `VITE_MAPBOX_ACCESS_TOKEN` وقيمته مفتاح Mapbox الخاص بك.
+1. افتح المستودع على GitHub → **Settings** → **Secrets and variables** → **Actions**.
+2. اضغط **New repository secret**.
+3. **Name:** `VITE_MAPBOX_ACCESS_TOKEN`
+4. **Value:** الصق مفتاح Mapbox الخاص بك (يبدأ عادةً بـ `pk.`).
+5. احفظ.
 
-الـ workflow مضبوط مسبقاً لاستخدام هذا الـ Secret عند البناء؛ بعد إضافته، أعد تشغيل الـ workflow (أو ادفع أي تعديل) وسيظهر خيار Mapbox في الموقع المنشور.
+بعد ذلك **أعد تشغيل آخر workflow** (تبويب **Actions** → اختر آخر تشغيل → **Re-run all jobs**) أو ادفع أي تعديل على الفرع `main`. بعد انتهاء البناء والنشر، سيظهر زر "Mapbox (أقمار صناعية)" على الموقع وستعمل الخريطة بـ Mapbox.
+
+**ملاحظة:** إذا ظهرت رسالة "Map data not yet available" لطبقة الأقمار الصناعية أو الشارع، تأكد أن المفتاح في Mapbox لا يقيد الدومين (أو أضف `https://khaledsulimani.github.io` في قيد الدومين). تم أيضاً إضافة `<meta name="referrer" content="no-referrer">` في الصفحة لتحسين تحميل التايلات من بعض الخوادم.

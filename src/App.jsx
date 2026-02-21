@@ -17,12 +17,12 @@ function App() {
     >
       <header
         id="app-header"
-        className="flex items-center justify-center gap-4 py-3 px-4 bg-[#0d3b2a] border-b-2 border-[#d4a84b] shadow-md"
+        className="flex flex-col items-center justify-center gap-2 py-3 px-4 bg-[#0d3b2a] border-b-2 border-[#d4a84b] shadow-md"
       >
         <img
-          src="/hara-logo.png"
+          src={`${import.meta.env.BASE_URL}hara-logo.png`}
           alt="شعار الحارة اليمانية"
-          className="h-24 w-24 md:h-28 md:w-28 object-contain"
+          className="h-20 w-20 md:h-24 md:w-24 object-contain flex-shrink-0"
           onError={(e) => { e.target.style.display = 'none' }}
         />
         <h1 className="text-xl md:text-2xl font-bold text-[#f5f0e6]">
